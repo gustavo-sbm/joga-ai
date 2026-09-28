@@ -1,7 +1,10 @@
 package com.jogaai.theme
 
 import androidx.compose.ui.graphics.Color
+import com.jogaai.domain.model.StatusEmprestimo
 import com.jogaai.domain.model.StatusExemplar
+import com.jogaai.domain.model.StatusReserva
+import com.jogaai.domain.model.StatusUser
 
 val CoresDeTampa = listOf(
     Color(0xFF2C6CB0),  // azul
@@ -21,11 +24,11 @@ val CoresDeTampa = listOf(
 fun corDaTampa(nome: String): Color =
     CoresDeTampa[nome.sumOf { it.code } % CoresDeTampa.size]
 
-val VerdeDisponivel = Color(0xFF2E7D5B)
+val VerdeDisponivel = Color(0xFF287050)
 val AzulEmprestado  = Color(0xFF2C6CB0)
-val AmbarReservado  = Color(0xFFE0A82B)
+val AmbarReservado  = Color(0xFF8C6108)
 val VermelhoAlerta  = Color(0xFFC2372A)
-val CinzaInativo    = Color(0xFF9AA3A0)
+val CinzaInativo    = Color(0xFF646C6A)
 
 fun corDoStatus(status: StatusExemplar): Color = when (status) {
     StatusExemplar.DISPONIVEL   -> VerdeDisponivel
@@ -33,6 +36,26 @@ fun corDoStatus(status: StatusExemplar): Color = when (status) {
     StatusExemplar.RESERVADO    -> AmbarReservado
     StatusExemplar.MANUTENCAO   -> VermelhoAlerta
     StatusExemplar.INDISPONIVEL -> CinzaInativo
+}
+
+fun corDoStatus(status: StatusUser): Color = when (status) {
+    StatusUser.ATIVO     -> VerdeDisponivel
+    StatusUser.INATIVO   -> CinzaInativo
+    StatusUser.BLOQUEADO -> VermelhoAlerta
+}
+
+fun corDoStatus(status: StatusEmprestimo): Color = when (status) {
+    StatusEmprestimo.ATIVO      -> AzulEmprestado
+    StatusEmprestimo.ATRASADO   -> VermelhoAlerta
+    StatusEmprestimo.FINALIZADO -> VerdeDisponivel
+    StatusEmprestimo.CANCELADO  -> CinzaInativo
+}
+
+fun corDoStatus(status: StatusReserva): Color = when (status) {
+    StatusReserva.ATIVA     -> AmbarReservado
+    StatusReserva.ATENDIDA  -> VerdeDisponivel
+    StatusReserva.CANCELADA -> CinzaInativo
+    StatusReserva.EXPIRADA  -> CinzaInativo
 }
 
 // Teal — cor principal
