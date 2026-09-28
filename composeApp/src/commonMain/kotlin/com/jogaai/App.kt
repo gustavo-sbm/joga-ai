@@ -18,7 +18,7 @@ import com.jogaai.ui.navigation.MainNavigation
 
 @Composable
 fun App() {
-    var isLoggedIn by remember { mutableStateOf<Boolean?>(false) }
+    var isLoggedIn by remember { mutableStateOf<Boolean?>(true) }
 
 
     JogaAiTheme {
