@@ -1,6 +1,5 @@
 package com.jogaai.ui.navigation
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -9,12 +8,10 @@ import androidx.compose.runtime.setValue
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.jogaai.data.AppModule
 import com.jogaai.ui.categoria.CategoriaScreen
 import com.jogaai.ui.emprestimo.EmprestimoScreen
 import com.jogaai.ui.exemplar.ExemplarScreen
 import com.jogaai.ui.jogo.JogoScreen
-import com.jogaai.ui.jogo.JogoViewModel
 import com.jogaai.ui.painel.PainelScreen
 import com.jogaai.ui.pessoa.PessoaScreen
 import com.jogaai.ui.reserva.ReservaScreen
@@ -58,8 +55,7 @@ fun MainNavigation(onLogout: () -> Unit) {
             popExitTransition = { navExitTransition }) {
             composable<Panel> { PainelScreen() }
             composable<Game> {
-                val viewModel = remember { JogoViewModel(AppModule.jogoRepository, AppModule.exemplarRepository) }
-                JogoScreen(viewModel = viewModel)
+                JogoScreen()
             }
             composable<Copies> { ExemplarScreen() }
             composable<Categories> { CategoriaScreen() }
