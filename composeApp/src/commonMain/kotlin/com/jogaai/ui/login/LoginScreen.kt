@@ -9,7 +9,9 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import com.jogaai.data.AppModule
 import com.jogaai.theme.Spacing
 import com.jogaai.ui.shared.AppTextField
 import com.jogaai.ui.shared.ColumnResponsive
@@ -18,9 +20,9 @@ import com.jogaai.ui.shared.responsiveWidth
 
 @Composable
 fun LoginScreen(
-    viewModel: LoginViewModel,
     onNavigateToRegister: () -> Unit,
-    onLoginSuccess: () -> Unit
+    onLoginSuccess: () -> Unit,
+    viewModel: LoginViewModel = remember { LoginViewModel(AppModule.authRepository) },
 ) {
     val uiState by viewModel.uiState.collectAsState()
 

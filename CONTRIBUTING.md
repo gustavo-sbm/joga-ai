@@ -122,26 +122,30 @@ A ordem importa: o `when` para no primeiro ramo verdadeiro. Se o vazio vier ante
 3. Cores **só** do tema: `MaterialTheme.colorScheme.xxx`. Nunca `Color(0xFF...)` dentro de uma tela.
 4. Espaçamento (`padding`, `spacedBy`, `Spacer`) **só** com `Spacing.xs/sm/md/lg/xl/xxl/xxxl`. Tamanho e forma (largura de um card, raio de canto) podem usar `dp` direto.
 5. Texto de botão com **só a primeira letra maiúscula**: "Tentar novamente", não "Tentar Novamente".
-6. Antes de criar um componente, olhe em `ui/shared/`. Pode já existir.
+6. **Status** (disponível, atrasado, cancelada...) sempre com o `BadgeStatus`:
+    ```kotlin
+    BadgeStatus(emprestimo.status.descricao, corDoStatus(emprestimo.status))
+    ```
+   Não crie outro badge. A cor de cada status já está definida no `theme/Color.kt`, e cada cor tem um significado só no app inteiro (verde = tudo certo, azul = em andamento, âmbar = aguardando, vermelho = precisa de atenção, cinza = encerrado).
+7. Antes de criar um componente, olhe em `ui/shared/`. Pode já existir: `EstadoDaTela`, `BadgeStatus`, `Avatar`, `AvatarAndDetails`, `AppTextField`.
 
 **Componentes**
 
-7. Todo `@Composable` que desenha algo recebe `modifier: Modifier = Modifier` como **primeiro parâmetro opcional** (depois dos obrigatórios) e repassa para o elemento de fora.
-8. Dentro do componente, use `modifier` (minúsculo, o parâmetro). `Modifier` (maiúsculo) cria um novo e joga fora o que veio de quem chamou.
+8. Todo `@Composable` que desenha algo recebe `modifier: Modifier = Modifier` como **primeiro parâmetro opcional** (depois dos obrigatórios) e repassa para o elemento de fora.
+9. Dentro do componente, use `modifier` (minúsculo, o parâmetro). `Modifier` (maiúsculo) cria um novo e joga fora o que veio de quem chamou.
 
 **Dados**
 
-9. Nomes de campos e funções em **português**, como nos modelos (`nome`, `descricao`, `listar`).
-10. Modelos são imutáveis. Para mudar algo, use `copy`:
+10. Nomes de campos e funções em **português**, como nos modelos (`nome`, `descricao`, `listar`).
+11. Modelos são imutáveis. Para mudar algo, use `copy`:
     ```kotlin
     repository.atualizar(emprestimo.copy(status = StatusEmprestimo.FINALIZADO, dataDevolucao = hoje))
     ```
-11. Datas são `kotlinx.datetime.LocalDate`. Para pegar a data de hoje:
+12. Datas são `kotlinx.datetime.LocalDate`. Para pegar a data de hoje:
     ```kotlin
     val hoje = Clock.System.todayIn(TimeZone.currentSystemDefault())
     ```
     O `Clock` vem de `kotlin.time`. Exemplos na internet com `kotlinx.datetime.Clock` são de uma versão antiga. Se o IntelliJ pedir `@OptIn(ExperimentalTime::class)`, aceite.
-12. Para mostrar um status, use a `descricao` do enum: `status.descricao` → "Atrasado".
 
 **Antes de mandar o código**
 
